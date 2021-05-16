@@ -19,19 +19,19 @@ def user_profile_parser(profile_url,username):
 
 
 def user_followers_parser(soup,username):
-    user_followers = soup.find('a', href= '/'+ username+'?tab=followers')
-    user_followers = int(user_followers.find('span').text)
+    user_followers = soup.find('a', href= 'https://github.com/'+ username+'?tab=followers')
+    user_followers = int(user_followers.find('span').get_text())
     return user_followers
 
 
 def user_following_parser(soup,username):
-    user_following = soup.find('a', href='/'+ username+ '?tab=following')
-    user_following = int(user_following.find('span').text)
+    user_following = soup.find('a', href='https://github.com/'+ username+ '?tab=following')
+    user_following = int(user_following.find('span').get_text())
     return user_following
 
 def user_stars_parser(soup,username):
-    user_stars = soup.find('a', href='/'+ username+'?tab=stars')
-    user_stars = int(user_stars.find('span').text)
+    user_stars = soup.find('a', href='https://github.com/'+ username+'?tab=stars')
+    user_stars = int(user_stars.find('span').get_text())
     return user_stars
 
 def user_repositories_parser(soup,username):
@@ -39,5 +39,4 @@ def user_repositories_parser(soup,username):
     user_repositories_urls = user_repositories_text.find_all('a', itemprop = "name codeRepository")
     for i in range(len(user_repositories_urls)):
         user_repositories_urls[i] = user_repositories_urls[i].get('href')
-
     return user_repositories_urls
